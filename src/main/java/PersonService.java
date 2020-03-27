@@ -73,4 +73,53 @@ public class PersonService {
         }
     }
 
+    public String findByFirstName(String firstName) {
+        String SQL = "SELECT * FROM person WHERE first_Name = '" + firstName + "';";
+        String people = "";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(SQL)) {
+            while (rs.next()) {
+                people += rs.getRow() + "\n";
+            }
+            System.out.println("Retrieved people from table");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return people;
+    }
+
+    public String findByLastName(String lastName) {
+        String SQL = "SELECT * FROM person WHERE Last_name = '" + lastName + "';";
+        String people = "";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(SQL)) {
+            while (rs.next()) {
+                people += rs.getRow() + "\n";
+            }
+            System.out.println("Retrieved people from table");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return people;
+    }
+
+    public String findByBirthDate(String birthdate) {
+        String SQL = "SELECT * FROM person WHERE birthdate = '" + birthdate + "';";
+        String people = "";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(SQL)) {
+            while (rs.next()) {
+                people += rs.getRow() + "\n";
+            }
+            System.out.println("Retrieved people from table");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return people;
+    }
 }
+
+
