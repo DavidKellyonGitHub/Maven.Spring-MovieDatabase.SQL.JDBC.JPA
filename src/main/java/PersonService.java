@@ -36,7 +36,8 @@ public class PersonService {
     }
 
     public void updatePerson(Person person) {
-        String SQL = "UPDATE person set (First_name = '" + person.getFirst_name() + "', Last_name = '" + person.getLast_name() + "', birthdate = '" + person.getBirthdate() + "') WHERE id = " + person.getId() + ";"; ;
+        String SQL = "UPDATE person set (First_name = '" + person.getFirst_name() + "', Last_name = '" + person.getLast_name() + "', birthdate = '" + person.getBirthdate() + "') WHERE id = " + person.getId() + ";";
+        ;
         try (Connection conn = connect();
              Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(SQL);
@@ -46,14 +47,30 @@ public class PersonService {
         }
     }
 
-    public void deletePerson(Person person){
+    public void deletePerson(Person person) {
         String SQL = "DELETE FROM person WHERE id = " + person.getId() + ";";
         try (Connection conn = connect();
-             Statement stmt = conn.createStatement()){
+             Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(SQL);
             System.out.println("Deleted Person from table");
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println((e.getMessage()));
         }
     }
+
+    public void deletePeople(Person[] people) {
+        String SQL = "DELETE FROM person WHERE id IN (" + people[0].getId();
+        for (int i = 0; i < people.length; i++) {
+            SQL += "," + people[i];
+        }
+        SQL += ");";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(SQL);
+            System.out.println("Deleted People from table");
+        } catch (SQLException e) {
+            System.out.println((e.getMessage()));
+        }
+    }
+
 }
