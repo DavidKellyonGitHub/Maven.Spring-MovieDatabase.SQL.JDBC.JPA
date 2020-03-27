@@ -25,7 +25,7 @@ public class PersonService {
     }
 
     public void addPerson(Person person) {
-        String SQL = "INSERT INTO person VALUES (" + person.getId() + ", " + person.getFirst_name() + ", " + person.getLast_name() + ", " + person.getBirthdate() + ");";
+        String SQL = "INSERT INTO person VALUES ('" + person.getId() + "', '" + person.getFirst_name() + "', '" + person.getLast_name() + "', '" + person.getBirthdate() + "');";
         try (Connection conn = connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(SQL)) {
@@ -36,18 +36,15 @@ public class PersonService {
         }
     }
 
-    public void updatePerson(Person person, String[] columns, String[] values) {
-        String SQL = "UPDATE person set (";
-        if (columns.length > 1) {
-            SQL += columns[0] + " = '" + values[0];
-            for (int i = 1; i < columns.length; i++) {
-                SQL += ", " + columns[i];
-            }
-
-        } else if (columns.length == 1) {
-            SQL += columns[0];
+    public void updatePerson(Person person) {
+        String SQL = "UPDATE person set (First_name = '" + person.getFirst_name() + "', Last_name = '" + person.getLast_name() + "', birthdate = '" + person.getBirthdate() + "');";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(SQL)) {
+            stmt.executeUpdate(SQL);
+            System.out.println("Updated Person in table)");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-        SQL += ") ";
-
     }
 }
