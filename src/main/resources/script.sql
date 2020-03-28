@@ -10,16 +10,16 @@ insert into movies values ('Lost Ark', 100, 'Action', 10, 'PG');
 
 select * from movies where genre = 'Sci-Fi';
 
-select * from movies where IMDB score >= 6.5;
+select * from movies where IMDB_score >= 6.5;
 
 select * from movies where rating in ('PG', 'G') and Runtime <= 100;
 
-select avg(runtime), genre from movies where imdb score < 7.5 group by genre;
+select avg(runtime), genre from movies where imdb_score < 7.5 group by genre;
 
 update movies set (rating = 'R') where title = 'Starship Troopers';
 
 select id, rating from movies where genre in ('horror', 'documentary');
 
-select avg(imdb score), max(imdb score), min(imdb score), rating from movies group by rating having count(*) > 1;
+select avg(imdb_score), max(imdb_score), min(imdb_score), rating from movies group by rating having count(*) > 1;
 
-delete from movies where rating = 'R';
+

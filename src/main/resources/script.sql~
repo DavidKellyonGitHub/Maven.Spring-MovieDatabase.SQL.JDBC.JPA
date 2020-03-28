@@ -22,4 +22,4 @@ select id, rating from movies where genre in ('horror', 'documentary');
 
 select avg(imdb score), max(imdb score), min(imdb score), rating from movies group by rating having count(*) > 1;
 
-
+delete from movies where rating = 'R';

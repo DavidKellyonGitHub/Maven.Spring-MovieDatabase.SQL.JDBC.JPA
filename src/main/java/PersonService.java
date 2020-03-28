@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 @Service
 public class PersonService {
@@ -119,6 +120,58 @@ public class PersonService {
             System.out.println(e.getMessage());
         }
         return people;
+    }
+
+    public HashMap<String, String> getSurnamesMap() {
+        String SQL = "SELECT Last_name FROM person SORT BY asc";
+        HashMap<String, String> surnamesOnly = new HashMap<>();
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(SQL)) {
+            while (rs.next()) {
+                surnamesOnly.put(rs.getString("Last_name"), null);
+            }
+            System.out.println("Retrieved surnames from table");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return surnamesOnly;
+    }
+
+    public HashMap<String, String> getSurnamePersonMap() {
+        HashMap<String, String> surnamesPeople = getSurnamesMap();
+        for (String surname : surnamesPeople.keySet()) {
+            String SQL = "SELECT * FROM person WHERE Last_name = '" + surname + "';";
+            try (Connection conn = connect();
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(SQL)) {
+                while (rs.next()) {
+                    String personString = "";
+                    for (int i = 1; i <= 4; i++) {
+                        personString += surnamesPeople.put(surname, rs.getString(i)) + " ";
+                    }
+                    surnamesPeople.put(surname, personString);
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return surnamesPeople;
+    }
+
+    public HashMap<String,String> getFirstNamesNumOfMap() {
+            HashMap<String,String> firstNameNumMap = new HashMap<>();
+            String SQL = "SELECT first_Name, count(first_name) from person group by first_name";
+            try (Connection conn = connect();
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(SQL)){
+                while (rs.next()){
+                    firstNameNumMap.put(rs.getString(1),rs.getString(2));
+                }
+            } catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+            return firstNameNumMap;
     }
 }
 
