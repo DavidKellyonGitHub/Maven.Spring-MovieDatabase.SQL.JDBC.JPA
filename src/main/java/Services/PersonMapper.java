@@ -2,6 +2,7 @@ package Services;
 
 import Models.Person;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,4 +17,5 @@ public class PersonMapper implements RowMapper<Person> {
         person.setBirthdate(rs.getString("birthdate"));
         return person;
     }
+
 }

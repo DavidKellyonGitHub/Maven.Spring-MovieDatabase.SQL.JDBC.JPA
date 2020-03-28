@@ -50,6 +50,10 @@ public class PersonService {
         return jdbcTemplate.query("SELECT * FROM person WHERE birthdate = '" + birthdate + "';", new PersonMapper());
     }
 
+    public Person findById(String id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM person WHERE id = '" + id + "';", new PersonMapper());
+    }
+
 
     public HashMap<String, List<Person>> getSurnamePersonMap() {
         HashMap<String, List<Person>> surnamesPeople = new HashMap<>();
@@ -60,9 +64,15 @@ public class PersonService {
         return surnamesPeople;
     }
 
-    public Map<String, Object> getFirstNamesNumOfMap() {
+    public Map<String, Object> getFirstNamesNumMap() {
         return jdbcTemplate.queryForMap("SELECT first_Name, count(first_name) from person group by first_name");
     }
+
+    public List<Person> findAll() {
+        return jdbcTemplate.query("SELECT * FROM person;", new PersonMapper());
+    }
+
+
 }
 
 

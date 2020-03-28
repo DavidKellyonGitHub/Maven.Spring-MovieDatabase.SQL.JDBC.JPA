@@ -9,6 +9,7 @@ public class Person {
     private String first_name;
     private String last_name;
     private String birthdate;
+    private Long home_id;
 
     public Long getId() {
         return id;
@@ -40,5 +41,13 @@ public class Person {
 
     public void setBirthdate(String  birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public Long getHome_id() {
+        return home_id;
+    }
+
+    public void setHome_id(Long home_id) {
+        this.home_id = home_id;
     }
 }
