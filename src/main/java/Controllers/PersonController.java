@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Person;
+import Services.JPAPersonService;
 import Services.PersonService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ import java.util.Map;
 public class PersonController {
 
     @Autowired
-    PersonService ps;
-    public PersonController(PersonService ps){
+    JPAPersonService ps;
+    public PersonController(JPAPersonService ps){
         this.ps = ps;
     }
 
